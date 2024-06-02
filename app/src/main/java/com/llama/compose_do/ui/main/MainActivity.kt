@@ -1,6 +1,7 @@
 package com.llama.compose_do.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -15,6 +16,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -81,6 +83,14 @@ fun TitleLayout(
         mutableStateOf("")
     }
 
+    val checkValidationYeah = remember {
+        derivedStateOf() {
+            checkValidation(titleRememberText.value)
+        }
+    }
+
+    Log.d("TAG", "TitleLayout: ${checkValidation(titleRememberText.value)} // $checkValidationYeah")
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -115,6 +125,7 @@ fun TitleLayout(
             },
             modifier = Modifier
                 .fillMaxWidth()
+                .background(if (!checkValidationYeah.value) Color.Gray else Color.White)
                 .height(70.dp)
         ) {
             Text(text = "set Title")
@@ -175,6 +186,10 @@ fun SubTitleLayout(title: String, onBack:()-> Unit) {
             Text(text = "Back")
         }
     }
+}
+
+private fun checkValidation(title: String) : Boolean {
+    return title.length > 5
 }
 
 @Preview
