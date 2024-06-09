@@ -31,6 +31,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.llama.compose_do.Global.MainGlobal
+import com.llama.compose_do.solid.Circle
+import com.llama.compose_do.solid.Shape
+import com.llama.compose_do.solid.Square
 import com.llama.compose_do.ui.theme.Compose_doTheme
 
 class MainActivity : ComponentActivity() {
@@ -39,7 +42,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val viewModel: MainViewModel = viewModel()
             val navController = rememberNavController()
-            
             NavHost(
                 navController = navController,
                 startDestination = MainGlobal.MAIN_SCREEN
@@ -64,9 +66,11 @@ fun MainScreen(
     TitleLayout(
         title = viewModel.titleText.value,
         onSetTitle = { titleText ->
+            Circle().draw()
             viewModel.setTitleText(titleText)
         },
         onNextPage = {
+            Square().draw()
             navController.navigate(MainGlobal.SUB_SCREEN)
         }
     )
