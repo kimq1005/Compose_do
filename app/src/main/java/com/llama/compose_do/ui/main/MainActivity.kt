@@ -224,5 +224,4 @@ class Dog: Animal("개") {
     override fun thrTow() {
         TODO("Not yet implemented")
     }
-
 }
