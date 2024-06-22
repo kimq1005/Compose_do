@@ -222,10 +222,11 @@ abstract class Animal(val name: String) {
 
 class Dog: Animal("개") {
     override fun speak() {
-        TODO("Not yet implemented")
+        //
     }
 
     override fun thrTow() {
-        TODO("Not yet implemented")
+        //
     }
 }
+
