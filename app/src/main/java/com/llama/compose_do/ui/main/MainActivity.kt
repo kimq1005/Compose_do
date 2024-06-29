@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -42,6 +43,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val viewModel: MainViewModel = viewModel()
             val navController = rememberNavController()
+
             NavHost(
                 navController = navController,
                 startDestination = MainGlobal.MAIN_SCREEN
@@ -121,6 +123,14 @@ fun TitleLayout(
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        for(i in 0..1) {
+            key(i) {
+                KeyLayOut(string = i.toString())
+            }
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
         Button(
             onClick = {
                 onSetTitle(
@@ -189,6 +199,20 @@ fun SubTitleLayout(title: String, onBack:()-> Unit) {
         ) {
             Text(text = "Back")
         }
+    }
+}
+
+@Composable
+fun KeyLayOut(string: String) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+    ) {
+        Text(
+            text = string,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 
