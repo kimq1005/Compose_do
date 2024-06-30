@@ -16,6 +16,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -33,9 +35,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.llama.compose_do.Global.MainGlobal
 import com.llama.compose_do.solid.Circle
-import com.llama.compose_do.solid.Shape
 import com.llama.compose_do.solid.Square
-import com.llama.compose_do.ui.theme.Compose_doTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,6 +85,11 @@ fun TitleLayout(
     onSetTitle: (String) -> Unit,
     onNextPage: () -> Unit
 ) {
+    DisposableEffect(Unit) {
+        Log.d("Recomposition", "RecompositionButtonLayout")
+        onDispose { }
+    }
+
     val titleRememberText = remember {
         mutableStateOf("")
     }
@@ -147,17 +152,15 @@ fun TitleLayout(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        Button(
-            onClick = {
+        RecompositionButtonLayout()
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        ResultButtonLayout(
+            onNextPage = {
                 onNextPage()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp)
-                .height(70.dp)
-        ) {
-            Text(text = "NextPage")
-        }
+            }
+        )
     }
 }
 
@@ -199,6 +202,41 @@ fun SubTitleLayout(title: String, onBack:()-> Unit) {
         ) {
             Text(text = "Back")
         }
+    }
+}
+
+@Composable
+fun RecompositionButtonLayout() {
+
+    Button(
+        onClick = {
+
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 20.dp)
+            .height(70.dp)
+    ) {
+        Text(text = "RecompositionCheck")
+    }
+}
+@Composable
+@Stable
+fun ResultButtonLayout(
+    onNextPage: () -> Unit
+) {
+    Log.d("Recomposition", "ResultButtonLayout")
+
+    Button(
+        onClick = {
+            onNextPage()
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 20.dp)
+            .height(70.dp)
+    ) {
+        Text(text = "NextPage")
     }
 }
 
