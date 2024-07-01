@@ -36,6 +36,8 @@ import androidx.navigation.compose.rememberNavController
 import com.llama.compose_do.Global.MainGlobal
 import com.llama.compose_do.solid.Circle
 import com.llama.compose_do.solid.Square
+import com.llama.compose_do.ui.stable.Contact
+import com.llama.compose_do.ui.stable.ContactRowScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,19 +45,23 @@ class MainActivity : ComponentActivity() {
         setContent {
             val viewModel: MainViewModel = viewModel()
             val navController = rememberNavController()
-
-            NavHost(
-                navController = navController,
-                startDestination = MainGlobal.MAIN_SCREEN
-            ) {
-                composable(MainGlobal.MAIN_SCREEN) {
-                    MainScreen(viewModel = viewModel, navController = navController)
-                }
-
-                composable(MainGlobal.SUB_SCREEN) {
-                    SubScreen(viewModel = viewModel, navController = navController)
-                }
-            }
+            val contact = Contact(
+                name = "김승현",
+                number = "01020293214"
+            )
+            ContactRowScreen(contact, modifier = Modifier.fillMaxWidth())
+//            NavHost(
+//                navController = navController,
+//                startDestination = MainGlobal.MAIN_SCREEN
+//            ) {
+//                composable(MainGlobal.MAIN_SCREEN) {
+//                    MainScreen(viewModel = viewModel, navController = navController)
+//                }
+//
+//                composable(MainGlobal.SUB_SCREEN) {
+//                    SubScreen(viewModel = viewModel, navController = navController)
+//                }
+//            }
         }
     }
 }
@@ -174,10 +180,14 @@ fun SubScreen(viewModel: MainViewModel, navController: NavController) {
 }
 
 @Composable
-fun SubTitleLayout(title: String, onBack:()-> Unit) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White),
+fun SubTitleLayout(
+    title: String,
+    onBack: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
     ) {
         Text(
             text = title,
