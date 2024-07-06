@@ -85,11 +85,6 @@ fun TitleLayout(
     onSetTitle: (String) -> Unit,
     onNextPage: () -> Unit
 ) {
-    DisposableEffect(Unit) {
-        Log.d("Recomposition", "RecompositionButtonLayout")
-        onDispose { }
-    }
-
     val titleRememberText = remember {
         mutableStateOf("")
     }
@@ -206,8 +201,8 @@ fun SubTitleLayout(title: String, onBack:()-> Unit) {
 }
 
 @Composable
+@Stable
 fun RecompositionButtonLayout() {
-
     Button(
         onClick = {
 
