@@ -50,18 +50,19 @@ class MainActivity : ComponentActivity() {
                 number = "01020293214"
             )
             ContactRowScreen(contact, modifier = Modifier.fillMaxWidth())
-//            NavHost(
-//                navController = navController,
-//                startDestination = MainGlobal.MAIN_SCREEN
-//            ) {
-//                composable(MainGlobal.MAIN_SCREEN) {
-//                    MainScreen(viewModel = viewModel, navController = navController)
-//                }
-//
-//                composable(MainGlobal.SUB_SCREEN) {
-//                    SubScreen(viewModel = viewModel, navController = navController)
-//                }
-//            }
+
+            NavHost(
+                navController = navController,
+                startDestination = MainGlobal.MAIN_SCREEN
+            ) {
+                composable(MainGlobal.MAIN_SCREEN) {
+                    MainScreen(viewModel = viewModel, navController = navController)
+                }
+
+                composable(MainGlobal.SUB_SCREEN) {
+                    SubScreen(viewModel = viewModel, navController = navController)
+                }
+            }
         }
     }
 }
